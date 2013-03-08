@@ -1,0 +1,16 @@
+{
+  "name": "jedi-drone",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node index"
+  },
+    "dependencies": {
+    "coffee-script": "1.4.x",
+    "async": "0.1.22",
+    "leapjs": "0.1.2"
+  },
+    "devDependencies": {
+    "mocha":"*"
+  }
+}
