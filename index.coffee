@@ -16,9 +16,12 @@ Leap.loop (frame, done)->
 
     trace "DO"
     if frame.hands.length
-      trace frame.hands[0].palmNormal
-      pcmd.clockwise = -frame.hands[0].palmNormal[0]
-      pcmd.front = frame.hands[0].palmNormal[2] / 1.2
+
+      pcmd.left = frame.hands[0].palmNormal[0]
+      pcmd.front = frame.hands[0].palmNormal[2]
+      pcmd.up = (frame.hands[0].palmPosition[1]-350) / 350
+
+      trace pcmd
     else
       pcmd.clockwise = 0;
 
