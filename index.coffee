@@ -10,41 +10,41 @@ process.on 'uncaughtException', (err) ->
   trace "Error " + err
 
 
-
 Leap.loop (frame, done)->
-  if start + 2000 < Date.now()
+  if start + 5000 < Date.now()
 
-    trace "DO"
     if frame.hands.length
 
       pcmd.left = frame.hands[0].palmNormal[0]
       pcmd.front = frame.hands[0].palmNormal[2]
       pcmd.up = (frame.hands[0].palmPosition[1]-350) / 350
+      ref.fly = true
 
-      trace pcmd
+
+      if frame.hands.length >= 2
+        pcmd.clockwise = -frame.hands[1].palmNormal[0]
+      else
+        pcmd.clockwise = 0
+
     else
-      pcmd.clockwise = 0;
+      land()
 
-
-    if frame.hands.length == 2
-      ref.fly = false
   done()
-
 
 
 control = drone.createUdpControl()
 
-
-ref  = {emergency:true, fly:true}
+ref  = {emergency:true, fly:false}
 pcmd = {}
 
 
-land: ()->
+land = ()->
   ref.fly = false
   pcmd = {}
 
 
 setInterval ()->
+  trace ref
   control.ref(ref)
   control.pcmd(pcmd)
   control.flush()
